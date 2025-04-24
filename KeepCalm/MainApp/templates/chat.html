@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_styles %}
+<link rel="stylesheet" href="{% static 'css/chat.css' %}" type="text/css" />
+<link rel="stylesheet" href="{% static 'css/chat-selector.css' %}" type="text/css" />
+{% endblock %}
+
+{% block content %}
+
+<div class="game-container">
+	<div class="chat-container">
+		<div class="nav-container">
+			<button class="system-button wheat chat-menu-btn"><img class="system-icon" src="{% static 'icons/menu.svg' %}"></button>
+			<p class="messager-header">Rawrgram</p>
+		</div>
+
+		<div class="chats">
+			<div class="chat">
+				<img class="message-avatar chat-icon" src="{% static 'images/chat_avatars/pedrada.png' %}" alt="avatar">
+				<div class="chat-info">
+					<p class="chat-header">Пед.рада школи №31</p>
+					<p class="chat-last-message">Алкоголь — це єдине що підтримує в мені життя</p>
+				</div>
+
+				<div class="chat-status">
+					<div class="chat-unread-mesages">1</div>
+					<p class="last-message-timestamp">08:08</p>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="chat-container">
+
+		<div class="nav-container">
+			<button class="system-button wheat chat-menu-btn"><img class="system-icon" src="{% static 'icons/menu.svg' %}"></button>
+
+			<img class="message-avatar chat-icon" src="{% static 'images/chat_avatars/pedrada.png' %}" alt="avatar">
+			<div class="chat-header-col">
+				<p class="chat-header">Пед.рада школи №31</p>
+				<p class="chat-status">5 online</p>
+			</div>
+
+		</div>
+
+		<div class="messages">
+
+			<div class="message-wrapper incoming">
+				<img class="message-avatar" src="{% static 'images/users/pohui.jpg' %}" alt="avatar">
+				<div class="messages-block">
+					<div class="message user-1">
+						<div class="message-username">Марія Михайлівна Завуч</div>
+						<div class="message-content-line">
+							<p class="message-text">Доброго ранку, колеги.</p>
+							<label class="message-timestamp">08:01</label>
+						</div>
+					</div>
+					<div class="message user-1">
+						<div class="message-content-line">
+							<p class="message-text">Вже п'ятниця, до канікул лишилось трохи більше тижня.</p>
+							<label class="message-timestamp">08:02</label>
+						</div>
+					</div>
+					<div class="message user-1">
+						<div class="message-content-line">
+							<p class="message-text">Давайте, треба лише дожити.</p>
+							<label class="message-timestamp">08:02</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="message-wrapper incoming">
+				<img class="message-avatar" src="{% static 'images/users/code.jpg' %}" alt="avatar">
+				<div class="messages-block">
+					<div class="message user-2">
+						<div class="message-username">Ігор В. Інформатика</div>
+						<div class="message-content-line">
+							<p class="message-text">І вам не хворіти</p>
+							<label class="message-timestamp">08:03</label>
+						</div>
+					</div>
+					<div class="message user-2">
+						<div class="message-content-line">
+							<p class="message-text">Їбав я цю школу в усіх позах</p>
+							<label class="message-timestamp">08:04</label>
+						</div>
+					</div>
+					<div class="message user-2">
+						<div class="message-content-line">
+							<p class="message-text">Вбачєйте, не в цей чат</p>
+							<label class="message-timestamp">08:04</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="message-wrapper incoming">
+				<img class="message-avatar" src="{% static 'images/users/hebbels.jpg' %}" alt="avatar">
+				<div class="messages-block">
+					<div class="message user-3">
+						<div class="message-username">Василь Сухомлинов Історія</div>
+						<div class="message-content-line">
+							<p class="message-text">Та кому ти пиздиш</p>
+							<label class="message-timestamp">08:04</label>
+						</div>
+					</div>
+					<div class="message user-3">
+						<div class="message-content-line">
+							<p class="message-text">
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pharetra, ante at commodo consequat, enim mi pellentesque enim, vitae euismod sem erat a quam. Praesent congue quis turpis a feugiat.
+							</p>
+							<p></p>
+							<p class="message-text">
+								Lorem ipsum dolor sit amet.
+							</p>
+							<label class="message-timestamp">08:06</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="message-wrapper outgoing">
+				<label class="message-timestamp">08:07</label>
+				<div class="message">
+					<div class="message-content-line">
+						<p class="message-text">Тримаймося, колеги</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="message-wrapper incoming">
+				<img class="message-avatar" src="{% static 'images/users/hebbels.jpg' %}" alt="avatar">
+				<div class="messages-block">
+					<div class="message user-3">
+						<div class="message-username">Василь Сухомлинов Історія</div>
+						<div class="message-content-line">
+							<p class="message-text">Алкоголь — це єдине що підтримує в мені життя</p>
+							<label class="message-timestamp">08:08</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="input-container">
+			<input type="text" disabled="disabled" placeholder="Message...">
+			<button class="system-button"><img class="system-icon" src="{% static 'icons/send.svg' %}"></button>
+		</div>
+
+	</div>
+</div>
+
+{% endblock %}

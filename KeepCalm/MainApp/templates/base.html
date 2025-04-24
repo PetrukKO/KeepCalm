@@ -1,0 +1,176 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <!-- TITLE AND PROPERTIES -->
+  {% if title != 'none' %}
+  <title>{{ title }}</title>
+  {% else %}
+  <title>KeepCalm</title>
+  {% endif %}
+
+  <!-- META CLASSES -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- GOOGLE SEARCH CONSOLE ID -->
+  <meta name="google-site-verification" content="not yet sucker" />
+
+
+
+  <!-- SECONDARY META DATA  -->
+  {% block page_meta %} {% endblock %}
+
+  <!-- STYLES -->
+
+  <link crossorigin="anonymous" href="{% static 'libs/modules/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+  <script crossorigin="anonymous" src="{% static 'libs/modules/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+  <!-- <script crossorigin="anonymous" src="{% static 'js/common.js' %}"></script> -->
+
+  <link href="{% static 'libs/modules/bootstrap-select/css/bootstrap-select.min.css'%}" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "Roboto-Thin";
+      src: url("{% static 'libs/fonts/roboto/Roboto-Thin.ttf' %}") format("truetype");
+    }
+
+    @font-face {
+      font-family: "Roboto";
+      src: url("{% static 'libs/fonts/roboto/Roboto-Regular.ttf' %}") format("truetype");
+    }
+
+    @font-face {
+      font-family: "Roboto-Black";
+      src: url("{% static 'libs/fonts/roboto/Roboto-Black.ttf' %}") format("truetype");
+    }
+
+    @font-face {
+      font-family: "Roboto-Light";
+      src: url("{% static 'libs/fonts/roboto/Roboto-Light.ttf' %}") format("truetype");
+    }
+
+    @font-face {
+      font-family: "Roboto-Medium";
+      src: url("{% static 'libs/fonts/roboto/Roboto-Medium.ttf' %}") format("truetype");
+    }
+
+    @font-face {
+      font-family: "Roboto-Bold";
+      src: url("{% static 'libs/fonts/roboto/Roboto-Bold.ttf' %}") format("truetype");
+    }
+
+    @font-face {
+      font-family: "Roboto-Black-Italic";
+      src: url("{% static 'libs/fonts/roboto/Roboto-BlackItalic.ttf' %}") format("truetype");
+    }
+
+    @font-face {
+      font-family: "Roboto-Bold-Italic";
+      src: url("{% static 'libs/fonts/roboto/Roboto-BoldItalic.ttf' %}") format("truetype");
+    }
+
+    @font-face {
+      font-family: "Roboto-Italic";
+      src: url("{% static 'libs/fonts/roboto/Roboto-Italic.ttf' %}") format("truetype");
+    }
+
+    @font-face {
+      font-family: "Roboto-Light-Italic";
+      src: url("{% static 'libs/fonts/roboto/Roboto-LightItalic.ttf' %}") format("truetype");
+    }
+
+    @font-face {
+      font-family: "Roboto-Medium-Italic";
+      src: url("{% static 'libs/fonts/roboto/Roboto-MediumItalic.ttf' %}") format("truetype");
+    }
+
+    @font-face {
+      font-family: "Roboto";
+      src: url("{% static 'libs/fonts/roboto/Roboto-Regular.ttf' %}") format("truetype");
+    }
+
+    @font-face {
+      font-family: "Roboto-Thin-Italic";
+      src: url("{% static 'libs/fonts/roboto/Roboto-ThinItalic.ttf' %}") format("truetype");
+    }
+
+    .new_header {
+      font-family: "Roboto-Medium", "Roboto", "Roboto-Black", Tahoma;
+      text-transform: none;
+    }
+
+    .roboto {
+      font-family: "Roboto", "Roboto-medium", Tahoma;
+    }
+
+
+    body {
+      background-image: url("{% static 'images/background.png' %}");
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-attachment: fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+
+    }
+  </style>
+  <link rel="stylesheet" href="{% static 'css/base.css'%}">
+
+  <script src="{% static 'libs/modules/jquery/jquery.js' %}" type="text/javascript"></script>
+  <link rel="icon" type="image/x-icon" href="{% static 'icons/favicon.ico' %}">
+
+  {% block page_style_pre_styles %} {% endblock %}
+  {% block page_styles %} {% endblock %}
+  {% block page_style_slot_1 %} {% endblock %}
+  {% block page_style_slot_2 %} {% endblock %}
+  {% block page_style_slot_3 %} {% endblock %}
+</head>
+
+<body>
+  <!-- __________________________________________ NAVBAR __________________________________________ -->
+  <!-- CSRF TOKEN  -->
+  {% block csrf_token %} {% endblock %}
+  
+  <nav class="navbar fixed-top navbar-expand-lg">
+
+  </nav>
+
+
+
+
+  <!-- __________________________________________ CONTENT __________________________________________ -->
+
+  <div id="content" class="page-content background">
+
+    {%block content%} {%endblock%}
+
+  </div>
+
+  <!-- <footer class="text-center text-white">
+    <div class="text-center p-3">
+      Є питання?
+      <a class="text-white" href="https://t.me/casy7/">Напишіть нам!</a>
+    </div>
+  </footer> -->
+</body>
+
+
+
+
+<!-- __________________________________________ SCRIPTS __________________________________________ -->
+
+
+
+<script src="{% static 'js/base.js' %}" type="text/javascript"></script>
+
+
+{% block page_scripts %} {% endblock %}
+
+
+</html>

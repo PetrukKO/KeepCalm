@@ -1,0 +1,66 @@
+.messager-header {
+	font-family: "Roboto", "Roboto-Black", Tahoma;
+	font-size: 30px;
+	margin-bottom: -5px;
+	line-height: 1.6;
+}
+
+.chats {
+	flex: 1;
+	padding: 10px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.chat {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	cursor: pointer;
+	border-bottom: 1px solid #626642;
+
+}
+
+.chat-last-message {
+	color: wheat;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.chat .chat-icon {
+	margin-top: 5px;
+}
+
+.chat-info {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	max-width: 337px;
+}
+
+.last-message-timestamp {
+	font-size: 0.85em;
+	color: #b3b3b3;
+}
+
+.chat-status {
+	display: flex;
+	flex-direction: column;
+	justify-content: end;
+}
+
+.chat-unread-mesages {
+	background-color: #b1ce9a;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: black;
+	font-weight: bold;
+}

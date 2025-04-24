@@ -1,0 +1,35 @@
+body {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+#content {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+}
+
+p, div {
+	color: white;
+	font-family: "Roboto", "Roboto-medium", Tahoma;
+}
+
+h1, h2, h3, h4, h5, p, small, a, td, li, pre, span, th, tr {
+    color: white;
+}
+
+
+footer {
+    background-color: #202020;
+    margin-top: 40px;
+    position: inherit;
+    bottom: 0;
+    width: 100%;
+}

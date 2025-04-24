@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block csrf_token %}
+{% csrf_token %}
+{% endblock %}
+
+{% block page_styles %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jerosoler/Drawflow/dist/drawflow.min.css">
+
+
+<link rel="stylesheet" href="{% static 'css/chat.css' %}" type="text/css" />
+
+<link rel="stylesheet" href="{% static 'css/editor-config.css' %}" type="text/css" />
+<link rel="stylesheet" href="{% static 'css/editor.css' %}" type="text/css" />
+<link rel="stylesheet" href="{% static 'css/chat-selector.css' %}" type="text/css" />
+<link rel="stylesheet" href="{% static 'css/form-controls.css' %}" type="text/css" />
+
+
+<script src="https://cdn.jsdelivr.net/gh/jerosoler/Drawflow/dist/drawflow.min.js"></script>
+{% endblock %}
+
+
+{% block content %}
+<div class="game-container">
+	<div id="drawflow"></div>
+</div>
+<div class="control-panel">
+	<button class="system-button save-btn" id="save-btn">Save</button>
+	<button class="system-button add-node-btn" id="add-node-btn">Add Node</button>
+	<div class="node-selected-panel">
+		<button id="add-output">+</button>
+		<button id="remove-output">-</button>
+	</div>
+
+</div>
+
+<script>
+
+	let chatId = "{{ chat_id }}";
+	let chatStructureData = JSON.parse(`{{ chat_structure|safe }}`);
+
+	let changedData = {
+		"deletedNodes": [],
+		"deletedConnections": [],
+	};
+
+
+
+</script>
+{% endblock %}
+
+
+
+
+
+{% block page_scripts %}
+<script src="{% static 'js/editor.js' %}" type="text/javascript"></script>
+{% endblock %}

@@ -1,0 +1,217 @@
+.game-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+.chat-container {
+	width: 25vw;
+	height: 78vh;
+	background-color: #34353a;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+
+.messages {
+	flex: 1;
+	padding: 10px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.message-wrapper {
+	display: flex;
+	flex-direction: row;
+	gap: 8px;
+	align-items: end;
+	width: fit-content;
+}
+
+.message-avatar {
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	background-color: #bbb;
+	flex-shrink: 0;
+	margin-bottom: -4px;
+	overflow: hidden;
+	display: inline-block;
+	object-fit: cover;
+}
+
+.messages-block {
+	max-width: 70%;
+	border-radius: 10px;
+	line-height: 1.4;
+	display: flex;
+	flex-direction: column;
+	border-bottom-left-radius: 0px;
+}
+
+.message {
+	margin: 5px;
+	padding: 5px;
+	border-radius: 10px;
+	margin-bottom: -4px;
+	background-color: #3b6680;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	width: fit-content;
+}
+
+.message-username {
+	margin-bottom: 4px;
+	font-size: 0.85em;
+	font-family: "Roboto-Bold", "Roboto", "Roboto-Black", Tahoma;
+}
+
+.message-text {
+	margin-bottom: 0px;
+}
+
+.message-timestamp {
+	margin-top: -18px;
+	margin-right: -47px;
+	float: right;
+	font-size: 0.85em;
+	color: #b3b3b3;
+}
+
+.user-1 {
+	background-color: #724f82;
+}
+
+.user-2 {
+	background-color: #657164;
+}
+
+.user-3 {
+	background-color: #887c64;
+}
+
+
+.message-wrapper.outgoing {
+	justify-content: flex-end;
+	flex-grow: 1;
+	width: auto;
+}
+
+.outgoing .message {
+	width: fit-content;
+	flex-grow: 0;
+}
+
+.outgoing .message-content {
+	background-color: #b1ce9a;
+	align-self: flex-end;
+
+
+}
+
+.outgoing .message-content-line {
+	width: max-content;
+	flex-direction: row-reverse;
+	display: flex;
+	flex-grow: 0;
+}
+
+
+.outgoing .message-timestamp {
+	margin-right: 0px;
+}
+
+.input-container {
+	display: flex;
+	padding: 10px;
+	border-top: 1px solid #424242
+}
+
+.input-container input {
+	flex: 1;
+	padding: 10px;
+	border-radius: 20px;
+	outline: none;
+	background-color: #373737;
+	border: 1px solid #626642;
+	color: #ddf5b3;
+}
+
+.system-button {
+	all: unset;
+	margin-left: 10px;
+	padding: 10px 15px;
+	background-color: transparent;
+	color: white;
+	border: none;
+	border-radius: 20px;
+	cursor: pointer;
+}
+
+.chat-menu-btn {
+	padding: 0px;
+	margin-left: 0px;
+	padding-left: 4px;
+	padding-right: 4px;
+	padding-top: 0px;
+	padding-bottom: 8px;
+
+	display: flex;
+	vertical-align: bottom;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.input-container button img {
+	filter: invert(39%) sepia(80%) saturate(61%) hue-rotate(10deg) brightness(90%) contrast(90%);
+}
+
+.system-button.wheat {
+	filter: invert(39%) sepia(80%) saturate(61%) hue-rotate(10deg) brightness(90%) contrast(90%);
+}
+
+.system-icon {
+	width: 32px;
+	height: 32px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-attachment: fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+}
+
+.nav-container {
+	display: flex;
+	flex-direction: row;
+	height: 64px;
+	padding-top: 8px;
+	padding-left: 8px;
+	width: 100%;
+	gap: 10px;
+	background-color: #1c1d20;
+}
+
+.chat-icon {
+	width: 45px;
+	height: 45px;
+}
+
+.chat-header {
+	font-family: "Roboto", "Roboto-Black", Tahoma;
+	font-size: 1.2em;
+	margin-bottom: 0px;
+}
+
+.chat-status {
+	color: wheat;
+	margin-top: -2px;
+}
