@@ -138,7 +138,31 @@
   {% block csrf_token %} {% endblock %}
   
   <nav class="navbar fixed-top navbar-expand-lg">
+    <ul class="navbar-nav me-auto mb-lg-0 central-nav-panel">
 
+      <li class="nav-item desktop {% if page_name == 'signin' %}active-page{% endif %}">
+        <a class="nav-link" href="/signin/">Логін</a>
+      </li>
+
+      <li class="nav-item desktop {% if page_name == 'signup' %}active-page{% endif %}">
+        <a class="nav-link" href="/signup/">Реєстрація</a>
+      </li>
+ 
+      <li class="nav-item desktop {% if page_name == 'chat' %}active-page{% endif %}">
+        <a class="nav-link" href="/">Чат</a>
+      </li>
+
+      <li class="nav-item desktop {% if page_name == 'editor' %}active-page{% endif %}">
+        <a class="nav-link" href="/editor/1/">Редактор</a>
+      </li>
+      {% if user.is_superuser %}
+      <li class="nav-item desktop">
+        <a class="admin-item" href="/admin/">Admin</a>
+      </li>
+      {% endif %}
+
+      {% block nav_items %} {% endblock %}
+    </ul>
   </nav>
 
 
@@ -155,7 +179,7 @@
   <!-- <footer class="text-center text-white">
     <div class="text-center p-3">
       Є питання?
-      <a class="text-white" href="https://t.me/casy7/">Напишіть нам!</a>
+      <a class="text-white" href="#">Напишіть нам!</a>
     </div>
   </footer> -->
 </body>

@@ -35,6 +35,12 @@ function byId(id) {
 	return document.getElementById(id);
 }
 
+function removeChildrens(parent) {
+	while (parent.firstChild) {
+		parent.removeChild(parent.firstChild);
+	}
+}
+
 function sendDefaultData() {
 
 	let some_data = { "data": "some data" };

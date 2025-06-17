@@ -1,8 +1,22 @@
-	let selectedNode = null;
-	let defaultNodeContent = `
+let selectedNode = null;
+let defaultNodeContent = `
 	<textarea class="form-input" df-desc name="description"></textarea>
 	`;
-	let editor = null;
+let editor = null;
+
+
+
+
+
+
+function sortByTimestamp(arr) {
+	arr.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+	return arr;
+}
+
+
+
+
 
 
 
@@ -19,7 +33,7 @@ window.addEventListener("load", () => {
 
 	editor.addModule('nameNewModule');
 	var data = { "root": 'true', "desc": "Початок чату" };
-	
+
 
 	if (chatStructureData == {}) {
 		editor.addNode("t78", 0, 1, 200, 500, "chatNode", data, "<h3>Початок чату</h3><input type='hidden' df-name name='root' value='true'><input type='hidden' df-desk value=''>");
@@ -30,6 +44,7 @@ window.addEventListener("load", () => {
 
 	editor.on('nodeSelected', function (id) {
 		selectedNode = id;
+		loadMessagesToEditor(id.replace("node-", ""));
 	});
 
 	editor.on('nodeUnselected', function () {
@@ -37,7 +52,7 @@ window.addEventListener("load", () => {
 	});
 
 	editor.on('nodeRemoved', function (id) {
-		console.log("Node removed: "+id);
+		console.log("Node removed: " + id);
 	})
 });
 
@@ -91,6 +106,13 @@ document.getElementById("remove-output").addEventListener("click", () => {
 	// editor.updateConnectionNodes(`node-${selectedId}`);
 });
 
+document.getElementById("sendNewMessageBtn").addEventListener("click", () => {
+	sendNodeMessage();
+});
+
+$("#chatNodeId").on('click', '.message-delete-btn', function () {
+	deleteNodeMessage(this);
+});
 
 function getEditorCenter() {
 	let editorTransform = document.querySelector(".drawflow").style.transform;
@@ -108,9 +130,35 @@ function getEditorCenter() {
 function addNode() {
 	let coords = [document.querySelector(".drawflow").getBoundingClientRect().x, document.querySelector(".drawflow").getBoundingClientRect().y];
 	console.log(coords);
-	data = {"desc": "" };
+	data = { "desc": "" };
 	editor.addNode("choice", 1, 1, -1 * coords[0] + 500, -1 * coords[1] + 500, "choiceNode", {}, defaultNodeContent);
 }
+
+
+function loadMessagesToEditor(nodeId) {
+	removeChildrens(byId("chatNodeId"));
+	let messages = sortByTimestamp(messagesInNodes[nodeId]);
+	for (let i = 0; i < messages.length; i++) {
+		let message = messages[parseInt(i)];
+		$("#chatNodeId").append(`
+		<div class="message-wrapper incoming">
+			<img class="message-avatar" src="{% static 'images/users/code.jpg' %}" alt="avatar">
+			<div class="messages-block">
+				<div class="message user-2">
+					<div class="message-username">`+ message.full_name + `</div>
+					<div class="message-content-line" id="message-`+ message.id + `">
+						<p class="message-text">`+ message.text + `</p>
+						<label class="message-timestamp">`+ message.time_sent + `</label>
+						<a class="message-timestamp message-delete-btn" data-value="`+ message.id + `">Del.</a>
+					</div>
+				</div>
+			</div>
+		</div>
+			`
+		);
+	}
+}
+
 
 function sendChatStructure() {
 
@@ -128,6 +176,97 @@ function sendChatStructure() {
 		success: function a(json) {
 			if (json.result === "success") {
 				console.log("success");
+			} else {
+			}
+		}
+	});
+}
+
+
+function sendNodeMessage() {
+
+	let messageId = 0;
+	let nodeId = selectedNode.replace("node-", "");
+	let messageText = byId("messageText").value;
+	let senderCharacter = byId("senderCharacter").value;
+	let dateWasWritten = byId("dateWasWritten").value;
+	let timeWasWritten = byId("timeWasWritten").value;
+	let timeSWasWritten = byId("timeSWasWritten").value;
+	let timeMsWasWritten = byId("timeMsWasWritten").value;
+
+
+	$.ajax({
+		url: "/send_node_message/",
+		type: 'POST',
+		data: {
+			'messageId': messageId,
+			'nodeId': nodeId,
+			'messageText': messageText,
+			'senderCharacter': senderCharacter,
+			'dateWasWritten': dateWasWritten,
+			'timeWasWritten': timeWasWritten,
+			'timeSWasWritten': timeSWasWritten,
+			'timeMsWasWritten': timeMsWasWritten
+		},
+		beforeSend: function (xhr) {
+			attachCSRFToken(xhr);
+		},
+		success: function a(json) {
+			if (json.result === "success") {
+				let newMessageId = json.messageId;
+				messagesInNodes[nodeId][messageId] = {
+					"id": newMessageId,
+					"text": messageText,
+					"time_was_written": timeWasWritten,
+					"time_sent": timeWasWritten + ":" + timeSWasWritten + ":" + timeMsWasWritten,
+					"timestamp": dateWasWritten + " " + timeWasWritten + ":" + timeSWasWritten + "." + timeMsWasWritten + "+00:00",
+					"was_read": false,
+					"attached_image": "",
+					"username": senderCharacter,
+					"full_name": charactersInfo[senderCharacter]
+				};
+				console.log("success");
+				loadMessagesToEditor(nodeId);
+			} else {
+			}
+		}
+	});
+}
+
+function deleteNodeMessage(target) {
+	console.log(target);
+
+	let messageId = target.getAttribute("data-value");
+
+	$.ajax({
+		url: "/delete_node_message/",
+		type: 'POST',
+		data: {
+			'messageId': messageId,
+		},
+		beforeSend: function (xhr) {
+			attachCSRFToken(xhr);
+		},
+		success: function a(json) {
+			if (json.result === "success") {
+				let deletedMessageId = json.messageId;
+
+
+				const messagesBlock = target.closest('.message-wrapper');
+				
+				target.parentNode.remove();
+
+				if (!messagesBlock) return; // если нет — выходим				
+
+				const remaining = messagesBlock.querySelectorAll('.message-content-line');
+				if (remaining.length === 0) {
+					messagesBlock.remove();
+				}
+
+				nodeId = selectedNode.replace("node-", "");
+				delete messagesInNodes[nodeId][messageId];
+				console.log("success");
+				loadMessagesToEditor(nodeId);
 			} else {
 			}
 		}

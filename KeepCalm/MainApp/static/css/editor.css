@@ -22,8 +22,8 @@ html, body {
 .drawflow_content_node {
 	display: flex;
 	justify-content: center;
-	align-items: center;	
-	
+	align-items: center;
+
 }
 
 .control-panel {
@@ -40,4 +40,19 @@ html, body {
 	margin: 5px;
 	cursor: pointer;
 	text-align: center;
+}
+
+.message-timestamp {
+	margin-right: -87px;
+}
+
+.message-delete-btn {
+	margin-right: -117px;
+	margin-top: -19px;
+	cursor: pointer;
+}
+
+.chat-container {
+	width: 36vw;
+	height: 85vh;
 }

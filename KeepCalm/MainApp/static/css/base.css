@@ -33,3 +33,23 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+
+
+.flex-panel {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+}
+
+.flex-group {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+}

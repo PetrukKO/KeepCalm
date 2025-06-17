@@ -17,6 +17,8 @@
 <link rel="stylesheet" href="{% static 'css/form-controls.css' %}" type="text/css" />
 
 
+
+
 <script src="https://cdn.jsdelivr.net/gh/jerosoler/Drawflow/dist/drawflow.min.js"></script>
 {% endblock %}
 
@@ -35,6 +37,54 @@
 
 </div>
 
+
+
+
+
+
+
+
+
+<div class="chat-container">
+
+	<div class="nav-container">
+		<button class="system-button wheat chat-menu-btn"><img class="system-icon" src="{% static 'icons/menu.svg' %}"></button>
+
+		<img class="message-avatar chat-icon" src="{% static 'images/chat_avatars/pedrada.png' %}" alt="avatar">
+		<div class="chat-header-col">
+			<p class="chat-header">Пед.рада школи №31</p>
+			<p class="chat-status">5 online</p>
+		</div>
+
+	</div>
+
+	<div class="messages" id="chatNodeId">
+
+	</div>
+
+
+	<div class="flex-group">
+		<div class="flex-panel">
+			<select name="sender-character" id="senderCharacter">
+				{% for character in characters %}
+				<option value="{{ character.0 }}">@{{ character.0 }}, {{ character.1 }}</option>
+				{% endfor %}
+			</select>
+		</div>
+		<div class="flex-panel">
+			<input type="date" value="2021-12-10" id="dateWasWritten">
+			<input type="time" value="08:00" id="timeWasWritten">
+			<input type="number" value="0" min="0" max="59" id="timeSWasWritten">
+			<input type="number" value="0" min="0" max="99" id="timeMsWasWritten">
+		</div>
+		<div class="flex-panel">
+			<input type="text" id="messageText" placeholder="Message...">
+			<button class="system-button" id="sendNewMessageBtn"><img class="system-icon" src="{% static 'icons/send.svg' %}"></button>
+		</div>
+	</div>
+
+</div>
+
 <script>
 
 	let chatId = "{{ chat_id }}";
@@ -45,10 +95,15 @@
 		"deletedConnections": [],
 	};
 
-
+	let messagesInNodes = JSON.parse(`{{ messagesInNodes|safe }}`);
+	let charactersInfo = JSON.parse(`{{ characters_JSON|safe }}`);
 
 </script>
 {% endblock %}
+
+
+
+
 
 
 
