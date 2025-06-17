@@ -56,3 +56,17 @@ html, body {
 	width: 36vw;
 	height: 85vh;
 }
+
+.message {
+	max-width: 255px;
+}
+
+.message-text {
+	text-wrap: wrap;
+	word-break: break-word;
+	overflow-wrap: break-word;
+}
+
+.messages-block {
+	max-width: initial;
+}

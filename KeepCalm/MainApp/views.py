@@ -91,7 +91,7 @@ class ChatEditorPage(View):
 
 		for node in ChatOptionNode.objects.all():
 			messages = Message.objects.filter(node=node).order_by('timestamp')
-			messages_txt = []
+			messages_txt = {}
 
 			for message in messages:
 				message_txt = {
@@ -106,9 +106,9 @@ class ChatEditorPage(View):
 					'full_name': message.user.full_name
 				}
 
-				messages_txt.append(message_txt)
+				messages_txt[message.id] = message_txt
 
-			messagesInNodes[str(node.id)] = messages_txt
+			messagesInNodes[node.id] = messages_txt
 
 		context['messagesInNodes'] = json.dumps(messagesInNodes, cls=DjangoJSONEncoder)
 
@@ -260,10 +260,11 @@ class AjaxEditorDeleteMessage(View):
 		form = request.POST
 
 		message = Message.objects.get(id=form['messageId'])
+		
+		result = {}
+		result["deletedMessageId"] = message.id
 		message.delete()
 
-		result = {}
-		result["messageId"] = message.id
 		result["result"] = "success"
 
 		return HttpResponse(

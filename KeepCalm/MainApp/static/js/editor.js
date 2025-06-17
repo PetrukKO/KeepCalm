@@ -137,7 +137,8 @@ function addNode() {
 
 function loadMessagesToEditor(nodeId) {
 	removeChildrens(byId("chatNodeId"));
-	let messages = sortByTimestamp(messagesInNodes[nodeId]);
+	let messages_list = Object.values(messagesInNodes[parseInt(nodeId)]);
+	let messages = sortByTimestamp(messages_list);
 	for (let i = 0; i < messages.length; i++) {
 		let message = messages[parseInt(i)];
 		$("#chatNodeId").append(`
@@ -214,7 +215,7 @@ function sendNodeMessage() {
 		success: function a(json) {
 			if (json.result === "success") {
 				let newMessageId = json.messageId;
-				messagesInNodes[nodeId][messageId] = {
+				messagesInNodes[parseInt(nodeId)][parseInt(newMessageId)] = {
 					"id": newMessageId,
 					"text": messageText,
 					"time_was_written": timeWasWritten,
@@ -249,7 +250,7 @@ function deleteNodeMessage(target) {
 		},
 		success: function a(json) {
 			if (json.result === "success") {
-				let deletedMessageId = json.messageId;
+				let deletedMessageId = json.deletedMessageId;
 
 
 				const messagesBlock = target.closest('.message-wrapper');
@@ -264,7 +265,7 @@ function deleteNodeMessage(target) {
 				}
 
 				nodeId = selectedNode.replace("node-", "");
-				delete messagesInNodes[nodeId][messageId];
+				delete messagesInNodes[parseInt(nodeId)][parseInt(deletedMessageId)];
 				console.log("success");
 				loadMessagesToEditor(nodeId);
 			} else {
