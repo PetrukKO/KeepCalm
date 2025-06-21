@@ -10,8 +10,7 @@ class ChatStructureAdapter:
 		if not 'db_id' in node['data']:
 
 			node_obj = ChatOptionNode(chat=chat)
-			node_obj.description = node['data']['desc']
-
+			node_obj.save()
 			node['data']['db_id'] = node_obj.id
 		
 		else:
@@ -20,7 +19,8 @@ class ChatStructureAdapter:
 
 		node_obj.pos_x = node['pos_x']
 		node_obj.pos_y = node['pos_y']
-		node_obj.description = node['data']['desc']
+		if 'desc' in node['data']:
+			node_obj.description = node['data']['desc']
 		node_obj.save()
 
 		if 'root' in node['data'] and node['data']['root'] == 'true':
