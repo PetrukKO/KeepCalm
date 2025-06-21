@@ -1,6 +1,6 @@
 let selectedNode = null;
 let defaultNodeContent = `
-	<textarea class="form-input" df-desc name="description"></textarea>
+	<textarea class="form-input" df-desc="" name="description"></textarea>
 	`;
 let editor = null;
 
@@ -132,6 +132,7 @@ function addNode() {
 	console.log(coords);
 	data = { "desc": "" };
 	editor.addNode("choice", 1, 1, -1 * coords[0] + 500, -1 * coords[1] + 500, "choiceNode", {}, defaultNodeContent);
+	sendChatStructure();
 }
 
 
@@ -176,7 +177,10 @@ function sendChatStructure() {
 		},
 		success: function a(json) {
 			if (json.result === "success") {
-				console.log("success");
+				editor.import(JSON.parse(JSON.parse(json.updatedStructure)));
+				messagesInNodes = JSON.parse(json.messagesInNodes);
+				warnUser("Saved!", "");
+				
 			} else {
 			}
 		}
@@ -272,4 +276,33 @@ function deleteNodeMessage(target) {
 			}
 		}
 	});
+}
+
+
+
+
+
+
+function warnUser(title, desc) {
+    const container = document.getElementById('warn-container');
+
+    const toast = document.createElement('div');
+    toast.className = 'warn-toast';
+
+    const titleEl = document.createElement('div');
+    titleEl.className = 'warn-title';
+    titleEl.textContent = title;
+
+    const descEl = document.createElement('div');
+    descEl.textContent = desc;
+
+    toast.appendChild(titleEl);
+    toast.appendChild(descEl);
+    container.appendChild(toast);
+
+    // Remove after 4 seconds
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => container.removeChild(toast), 500); // wait for fadeout
+    }, 4000);
 }

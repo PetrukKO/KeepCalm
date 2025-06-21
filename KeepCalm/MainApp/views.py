@@ -79,6 +79,34 @@ class MainChatPage(View):
 		return render(request, "chat.html", context)
 
 
+def get_messages_in_nodes(chat_id):
+
+	messages_in_nodes = {}
+
+	for node in ChatOptionNode.objects.filter(chat = Chat.objects.get(id=chat_id)):
+		messages = Message.objects.filter(node=node).order_by('timestamp')
+		messages_txt = {}
+
+		for message in messages:
+			message_txt = {
+				'id': message.id,
+				'text': message.text,
+				'time_sent': message.timestamp.strftime("%H:%M:%S") + f".{int(message.timestamp.microsecond / 10000):02d}",
+				'timestamp': str(message.timestamp),
+				'time_was_written': message.time_was_written,
+				'was_read': message.was_read,
+				'attached_image': str(message.attached_image),
+				'username': message.user.username,
+				'full_name': message.user.full_name
+			}
+
+			messages_txt[message.id] = message_txt
+
+		messages_in_nodes[node.id] = messages_txt
+	
+	return messages_in_nodes
+
+
 class ChatEditorPage(View):
 	def get(self, request, chat_id):
 		context = base_context(request, title='Edit')
@@ -87,28 +115,8 @@ class ChatEditorPage(View):
 		context['title'] = context['chat_obj'].name
 		context['chat_structure'] = csp.ChatStructureAdapter.to_json(context['chat_obj'])
 
-		messagesInNodes = {}
+		messagesInNodes = get_messages_in_nodes(chat_id)
 
-		for node in ChatOptionNode.objects.all():
-			messages = Message.objects.filter(node=node).order_by('timestamp')
-			messages_txt = {}
-
-			for message in messages:
-				message_txt = {
-					'id': message.id,
-					'text': message.text,
-					'time_sent': message.timestamp.strftime("%H:%M:%S") + f".{int(message.timestamp.microsecond / 10000):02d}",
-					'timestamp': message.timestamp,
-					'time_was_written': message.time_was_written,
-					'was_read': message.was_read,
-					'attached_image': str(message.attached_image),
-					'username': message.user.username,
-					'full_name': message.user.full_name
-				}
-
-				messages_txt[message.id] = message_txt
-
-			messagesInNodes[node.id] = messages_txt
 
 		context['messagesInNodes'] = json.dumps(messagesInNodes, cls=DjangoJSONEncoder)
 
@@ -214,6 +222,12 @@ class AjaxEditorSaveChatStructure(View):
 		chat_structure = csp.ChatStructureAdapter.from_json(chat_id, chat_structure)
 
 		result = {}
+
+		chat = Chat.objects.get(id=chat_id)
+		new_structure = json.dumps(csp.ChatStructureAdapter.to_json(chat))
+
+		result["updatedStructure"] = new_structure
+		result["messagesInNodes"] = json.dumps(get_messages_in_nodes(chat_id))
 		result["result"] = "success"
 
 		return HttpResponse(
