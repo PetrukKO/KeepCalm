@@ -13,6 +13,7 @@ class Chat(models.Model):
 class ChatOptionNode(models.Model):
 	chat = models.ForeignKey(Chat, on_delete=models.CASCADE)
 	description = models.CharField(max_length=250, blank=True, default="")
+	user_choise = models.CharField(max_length=1000, blank=True, default="")
 
 	pos_x = models.IntegerField(default=0)
 	pos_y = models.IntegerField(default=0)
